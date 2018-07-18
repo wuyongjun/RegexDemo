@@ -1,0 +1,71 @@
+正则表达式学习网站
+https://developer.mozilla.org
+javascript.ruanyifeng.com
+-----------------------------------------------------------------------
+正则表达式（操作字符串，操作系统级别的语言）
+1、魅力：
+	/\d+/g  g全局匹配
+2、创建：
+	a、字面量/pattern/flags
+		脚本加载后就已经编译好了，如果表达式不变的情况下，效率较高
+	b、new RegExp(pattern[,flags])，参数为字符串
+		运行时编译
+3、编写：
+	a、简单模式 /abc/
+	b、使用特殊字符
+		*0个或者多个 只对前面的一个字符起作用
+4、基础：
+	a、字符串和RegExp的方法
+	str.search(reg) 返回匹配成功的第一个位置  str.indexOf()
+	str.split(reg[, maxLength])
+	str.replace(reg, '') 返回一个新的字符串
+	reg.exec: 一次执行只能匹配一个结果---- ()分组，整体匹配一次，括号里的在匹配一次
+	reg.test	
+	str.match 使用g的话，则一次性返回所有结果
+	b、img选项
+		i 忽略大小写
+		m 多行模式
+		g 全局搜索
+	/ab/gi
+	c、匹配次数
+		{n} 前面的字符正好出现n次 
+		{n,m} 前面的字符至少n次，最多m次{n, }
+		+ 匹配前一个表达式一次或多次
+		* 匹配前一个表达式0次或多次
+		？匹配前一个表达式0次或1次
+	d、贪婪特性 表达式后面跟着？的话，就转为非贪婪模式
+5、应用：
+6、特殊字符：
+	\ 转义字符
+	\b 匹配单词的边界 \B非边界
+	let str = 'hello helloworld hello helloworld'
+	str.match(/\bhello\b/g);
+
+	\d 数字 \D非数字 \n 换行
+	\s 匹配空白字符  \S 非空白
+	\w 匹配字母、数字、下划线
+	^ 匹配输入的开始 $ 匹配输入的结束----整个字符串的开始和结束
+	多行模式可以匹配一行的开始和结束
+	. 匹配除了换行以外的任意字符 注意：匹配一位        正则表达式中是逐位匹配
+
+	(x) 分组 匹配x并记住
+	let str = 'fredfred';
+	str.match(/(fred)+/) ['fredfred', 'fred']
+	应用场景，匹配html标签
+	let str = 'foo bar foo bar';
+	str.match(/(.)o.*\1oo/) ---------- foo bar foo
+	\1表示第一个(.)捕获的字符 加\g match就不会捕获了 可使用exec替换
+
+	let str = 'hello world';----world hello' 单词换位
+	str.replace(/(\w+) (\w+)/, “$2 $1”); $1等同于\1
+	(?:x) 匹配分组但是不捕获字符
+	x(?=y) 匹配x后面必须是y
+	x(?!=y) 匹配x后面必须不是y
+	x|y 匹配x或者y
+	[xyz] x或者y或者z
+	[x-y] 表示x到y的范围
+	[^xyz] 既不是x,也不是y,也不是z
+
+	let str = 'adsdfsdf<div>wuyongjun@sina.cn</div>sdfsdlfjslf';
+	let reg = /<(.+)>(.+)<\/\1>/
+	str.match(reg)
